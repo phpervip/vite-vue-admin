@@ -18,7 +18,36 @@
 defineProps({
   menus: {
     type: Array,
-    default: () => []
+    default: () => [
+      {
+        path: '/welcome',
+        meta: {
+          title: 'Welcome',
+          icon: 'el-icon-home'
+        }
+      },
+      {
+        path: '/auth',
+        meta: {
+          title: 'Authentication',
+          icon: 'el-icon-lock'
+        }
+      },
+      {
+        path: '/role',
+        meta: {
+          title: 'Roles',
+          icon: 'el-icon-user'
+        }
+      },
+      {
+        path: '/user',
+        meta: {
+          title: 'Users',
+          icon: 'el-icon-user-solid'
+        }
+      }
+    ]
   }
 })
 const hasChildren = val => {

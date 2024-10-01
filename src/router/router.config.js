@@ -45,3 +45,5 @@ export const innerRoutes = [
     ]
   }
 ]
+
+export default innerRoutes; // Add this line for default export

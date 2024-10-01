@@ -1,10 +1,12 @@
+// .eslintrc.cjs
 module.exports = {
   env: {
     browser: true,
     es2021: true,
     node: true
   },
-  extends: ['standard', 'plugin:vue/vue3-essential', 'prettier', , './.eslintrc-auto-import.json'],
+  // 新增./.eslintrc-auto-import.json
+  extends: ['standard', 'plugin:vue/vue3-essential', 'prettier', './.eslintrc-auto-import.json'],
   overrides: [
     {
       env: {

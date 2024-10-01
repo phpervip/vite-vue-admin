@@ -8,7 +8,7 @@
 import { getPieTotal } from '@/api/dashboard'
 
 import useEchartHooks from '@/echarts/hooks'
-import { graphicPieCircle } from '@/echarts/conponents'
+import { graphicPieCircle } from '@/echarts/components'
 
 const echart = reactive({
   data: {},

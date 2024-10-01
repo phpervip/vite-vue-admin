@@ -1,3 +1,4 @@
+// src / pinia / modules / app.js
 import { getAppIsCollapse, setAppIsCollapse } from '@/utils/webStorage'
 
 const useAppStore = defineStore('app', {

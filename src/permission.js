@@ -1,26 +1,24 @@
+// src/permission.js
 import router from '@/router'
 import { getToken } from '@/utils/webStorage'
 import { useUserStore } from '@/pinia'
-
-import NProgress from 'nprogress'
-import 'nprogress/nprogress.css'
 
 // 白名单
 const whiteList = ['/login']
 // 是否已加载路由
 let routerIsLoaded = false
+// 是否加载本地路由
+const isLocal = import.meta.env.VITE_API_ISLOCAL === 'true'
 
 // 加载路由
 export const loadRoute = async () => {
   const userStore = useUserStore()
-  await userStore.getUserInfo()
+  await userStore.getUserInfo(isLocal)
   routerIsLoaded = true
 }
 
 // 路由导航
 router.beforeEach(async (to, from, next) => {
-  // 进度条开始
-  NProgress.start()
 
   // 设置页面标题
   if (to.meta.title) {
@@ -39,7 +37,7 @@ router.beforeEach(async (to, from, next) => {
   }
 
   // 判断是否登录
-  if (getToken()) {
+  if (getToken() || isLocal) {
     // 判断路由是否加载
     if (routerIsLoaded) {
       // 路由已加载时，匹配到路由 ? 则直接进入 :跳转到404
@@ -55,12 +53,6 @@ router.beforeEach(async (to, from, next) => {
     }
   } else {
     // 未登录跳转到登录页
-    // next({ path: '/login' })
-    next()
+    next({ path: '/login' })
   }
-})
-
-router.afterEach(() => {
-  // 进度条结束
-  NProgress.done()
 })

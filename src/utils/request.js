@@ -1,10 +1,11 @@
+// src/utils/request.js
 import axios from 'axios'
 
 import { getToken } from '@/utils/webStorage'
 import qs from 'qs'
 
 const service = axios.create({
-  baseURL: '/api',
+  baseURL: import.meta.env.VITE_API_BASEURL + '/api/v1',
   withCredentials: false, // 是否携带cookie
   timeout: 60000 // 超时响应
 })
@@ -62,6 +63,10 @@ service.interceptors.response.use(
       })
 
       // 401: token失效
+      // 这里需要跟后端大佬约定好，一般来说存在几个状态: 
+      // 1.登录时间过长导致的本地token过期
+      // 2.异地同账号登录导致的本地token失效（单点登录）
+      // 3.账号封禁或者其他状态本地token校验失败
       if (res.code === 401) {
         ElMessageBox.confirm('登录失效，请重新登录', '提示', {
           confirmButtonText: '重新登录',
@@ -69,7 +74,7 @@ service.interceptors.response.use(
           type: 'warning'
         }).then(() => {
           const router = useRouter()
-          router.push('/login')
+          router.push('/login') // token的问题都这里处理，并跳转到登录页
         })
       }
       return Promise.reject(new Error(res.msg || 'Error'))
@@ -79,8 +84,10 @@ service.interceptors.response.use(
   },
   error => {
     // 异常抛出错误并弹个消息
+    // 异常抛出错误并弹个消息
+    const errorMessage = error.response ? error.response.data.message || error.message : error.message;
     ElMessage({
-      message: error,
+      message: errorMessage,
       type: 'error',
       duration: 5 * 1000
     })

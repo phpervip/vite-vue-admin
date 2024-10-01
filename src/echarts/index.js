@@ -9,6 +9,7 @@ import { TitleComponent, TooltipComponent, LegendComponent, GridComponent, Graph
 import { LabelLayout, UniversalTransition } from 'echarts/features'
 // 引入 Canvas 渲染器，注意引入 CanvasRenderer 或者 SVGRenderer 是必须的一步
 import { CanvasRenderer } from 'echarts/renderers'
+// Initialize ECharts instance
 
 echarts.use([
   TitleComponent,

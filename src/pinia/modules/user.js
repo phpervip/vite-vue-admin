@@ -1,5 +1,5 @@
 import { getToken, setToken, getUserInfo as getUserInfoStore, setUserInfo } from '@/utils/webStorage'
-import { login, logout } from '@/api/user'
+import { login, logout, getCodeImg } from '@/api/user'
 import { isLocal } from '@/utils/helper'
 import { innerRoutes } from '@/router/router.config'
 import router from '@/router'
@@ -13,7 +13,7 @@ const useUserStore = defineStore('user', {
     return {
       token: getToken(),
       userInfo: getUserInfoStore(),
-      routes: [],
+      routes: innerRoutes,
       buttons: []
     }
   },

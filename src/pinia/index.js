@@ -1,3 +1,5 @@
+
+import { createPinia } from 'pinia'
 import useAppStore from './modules/app'
 import useUserStore from './modules/user'
 import useTagStore from './modules/tag'
