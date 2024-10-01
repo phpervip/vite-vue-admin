@@ -20,7 +20,7 @@
       <el-form-item prop="captcha">
         <el-input v-model="login.form.captcha" placeholder="验证码">
           <template #prefix>
-            <ft-icon name="el-icon lock" size="20px"></ft-icon>
+            <ft-icon name="el-icon Key" size="20px"></ft-icon>
           </template>
         </el-input>
         <div class="login-captcha" v-html="codeHtml" @click="getCode"></div>
@@ -79,7 +79,12 @@ const submit = () => {
     })
 }
 const getCode = () => {
-  codeHtml.value = ''
+  userStore.getCodeImg().then((res) => {
+    console.log('Response in frontend:', res);
+    codeHtml.value = res
+  }).catch(error => {
+    console.error('Error in frontend:', error);
+  });;
 }
 </script>
 
@@ -109,8 +114,9 @@ const getCode = () => {
 }
 
 .login-captcha {
-  width: 33%;
-  height: 38px;
+  margin-top: 10px;
+  width: 50%;
+  height: 50px;
   float: right;
   box-sizing: border-box;
   border: 1px solid #bebebe;

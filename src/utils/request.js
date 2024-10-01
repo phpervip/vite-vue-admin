@@ -47,9 +47,14 @@ service.interceptors.request.use(
 // axios拦截器 - 响应拦截
 service.interceptors.response.use(
   response => {
+
     // 如果为字节流，直接抛出字节流，不走code验证
     if (isBlob) {
       return response
+    }
+    // 如果响应头为image/svg+xml
+    if (response.headers['content-type'] === 'image/svg+xml') {
+      return response.data
     }
 
     const res = response.data
@@ -84,8 +89,8 @@ service.interceptors.response.use(
   },
   error => {
     // 异常抛出错误并弹个消息
-    // 异常抛出错误并弹个消息
-    const errorMessage = error.response ? error.response.data.message || error.message : error.message;
+    const errorMessage = error.response?.data?.message || 'Error';
+    console.error(errorMessage);
     ElMessage({
       message: errorMessage,
       type: 'error',

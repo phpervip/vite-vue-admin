@@ -72,6 +72,18 @@ const useUserStore = defineStore('user', {
       clearStore()
       router.push('/login')
       window.location.reload()
+    },
+    getCodeImg() {
+      return new Promise((resolve, reject) => {
+        getCodeImg()
+          .then(res => {
+            console.log('Response from API:', res); // 打印返回值，检查结构
+            resolve(res)
+          })
+          .catch(error => {
+            reject(error)
+          })
+      })
     }
   }
 })
